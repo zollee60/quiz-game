@@ -1,0 +1,101 @@
+.form{
+    width: 600px;
+    background-color: aquamarine;
+    margin: 0 auto;
+}
+
+.answerOption{
+    display: flex;
+    flex-direction: column;
+}
+
+.formHeader{
+    margin: 0;
+    padding: 0;
+}
+
+input[id='question']{
+    width: 350px;
+}
+
+.optionGroup{
+    margin: 10px 0;
+}
+
+.optionGroup > input[type='text']{
+    width: 350px;
+}
+
+.send{
+
+}
+
+.container{
+    width: 600px;
+    min-height: 150px;
+    margin: 0 auto;
+    padding: 50px 0;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    background-color: rgba(255,255,255,0.9);
+    border: 1px solid black;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+.qTable{
+    width: 400px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 10px;
+    border-collapse: collapse;
+}
+
+.qTable > tr, td{
+    border: 2px solid black;
+}
+
+
+.qCell{
+    width: 400px;
+}
+
+.iCell{
+    width: 50px;
+}
+
+.btImage{
+    width: 25px;
+    height: 25px;
+}
+
+.deleteBt{
+    width: 45px;
+    height: 45px;
+    box-shadow:inset 0px 1px 0px 0px #cf866c;
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	background-color:#d0451b;
+	border-radius:3px;
+	border:1px solid #942911;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:10px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #854629;
+}
+
+.deleteBt:hover:enabled {
+	background:linear-gradient(to bottom, #942911 5%, #d0451b 100%);
+	background-color:#942911;
+}
+.deleteBt:active:enabled {
+	position:relative;
+	top:1px;
+}

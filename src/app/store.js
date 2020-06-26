@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import quizBankReducer from '../features/QuizBank/quizBankSlice';
+import userReducer from '../features/userSlice';
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    quizBank: quizBankReducer,
+    user: userReducer
   },
 });
