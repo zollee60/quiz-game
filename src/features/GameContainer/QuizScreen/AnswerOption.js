@@ -43,7 +43,7 @@ export function AnswerOption(props){
 
     return(
         <tr className={getClassName()}  onClick={handleClick}>
-            <td>{(props.value+1)+' '}</td>
+            <td>{(props.value+1)}</td>
             <td>{props.answer}</td>
         </tr>
     )

@@ -10,7 +10,7 @@ export function QuizBank(){
     const renderTableData = () => questions.map((q) => {
         const {id, question} = q;
         return (
-            <tr>
+            <tr key={id}>
                 <td className={styles.iCell}>{id}</td>
                 <td className={styles.qCell}>{question}</td>
                 <td>
@@ -24,7 +24,9 @@ export function QuizBank(){
         <div className={styles.container}>
             <h3>Question Bank</h3>
             <table className={styles.qTable}>
-                {renderTableData()}
+                <tbody>
+                    {renderTableData()}
+                </tbody>
             </table>
         </div>
     );

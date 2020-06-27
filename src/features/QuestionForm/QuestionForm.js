@@ -26,6 +26,26 @@ export function QuestionForm(){
         setIsCorrect(true);
     }
 
+    const handleSend = () => {
+        const id = numOfQuestions + 1;
+        const questionString = document.getElementById('question').value;
+        const correctIndex = parseInt(document.querySelector('input[name="answers"]:checked').value);
+        let answers = [];
+        document.querySelectorAll('input[name="answers"][type="text"]').forEach((element) => {
+            answers.push(element.value);
+        });
+        const question = {
+            id: id,
+            question: questionString,
+            answers: answers,
+            correctIndex: correctIndex
+        }
+        dispatch(addQuestion(question));
+        dispatch(questionPoolInit());
+        setIsCorrect(false);
+        resetForm();
+    }
+
     return(
         <div className={conStyles.container}>
             <h2 className={styles.formHeader}>Add a question!</h2>
@@ -52,29 +72,9 @@ export function QuestionForm(){
             </div>
             {
                 isCorrectSet
-                ? <button onClick={() => {
-                    const id = numOfQuestions + 1;
-                    const questionString = document.getElementById('question').value;
-                    const correctIndex = parseInt(document.querySelector('input[name="answers"]:checked').value);
-                    let answers = [];
-                    document.querySelectorAll('input[name="answers"][type="text"]').forEach((element) => {
-                        answers.push(element.value);
-                    });
-                    const question = {
-                        id: id,
-                        question: questionString,
-                        answers: answers,
-                        correctIndex: correctIndex
-                    }
-                    dispatch(addQuestion(question));
-                    dispatch(questionPoolInit());
-                    setIsCorrect(false);
-                    resetForm();
-                }}> Send </button>
+                ? <button onClick={handleSend}> Send </button>
                 : <button disabled={true}> Send </button>
             }
-
-            
         </div>
     );
 }
