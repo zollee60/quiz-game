@@ -5,7 +5,7 @@ import {
     selectQuestionPoolLength,
     selectAnswered,
     setGameState,
-    setAnswered, setRandomQuestion
+    setAnswered, setRandomQuestion, selectActiveCorrectIndex, setSelectedAnswerIndex
 } from '../../QuizBank/quizBankSlice';
 import { selectName, selectPoints } from '../../userSlice';
 import { AnswerOption } from './AnswerOption';
@@ -18,6 +18,7 @@ export function QuizScreen(){
     const userName = useSelector(selectName);
     const points = useSelector(selectPoints);
     const answered = useSelector(selectAnswered);
+    const correctIndex = useSelector(selectActiveCorrectIndex);
 
     const renderAnswers = () => activeQuestion.answers.map((answer, index) =>{
         return (
@@ -45,6 +46,7 @@ export function QuizScreen(){
                         const random = Math.floor(Math.random() * questionPoolLength);
                         dispatch(setRandomQuestion(random));
                         dispatch(setAnswered(false));
+                        dispatch(setSelectedAnswerIndex(-1));
                     }}> NEXT </button>
                 : <button disabled={true}> NEXT </button>
 

@@ -7,42 +7,58 @@ import conStyles from '../GameContainer/GameContainer.module.css';
 export function QuestionForm(){
     const dispatch = useDispatch();
     const numOfQuestions = useSelector(selectNumOfQuestions);
-    const [isCorrectSet, setIsCorrect] = useState(false);
+    const [state, setState] = useState({
+        isCorrectSet: false,
+        question: '',
+        a1: '',
+        a2: '',
+        a3: '',
+        a4: '',
+        correctIndex: -1
+    })
 
     const resetForm = () => {
-        let questionInput = document.getElementById('question');
-        questionInput.value = "";
-        let answers = document.querySelectorAll('input[name="answers"]');
-        answers.forEach((answer) => {
-            answer.value = "";
-        });
-        let radioBts = document.querySelectorAll('input[type="radio"]');
-        radioBts.forEach((bt) => {
-            bt.checked = false;
+        setState({
+            isCorrectSet: false,
+            question: '',
+            a1: '',
+            a2: '',
+            a3: '',
+            a4: '',
+            correctIndex: -1
         })
     }
 
-    const handleChange = () => {
-        setIsCorrect(true);
+    const handleAnswerRadioBtChange = (event) => {
+        setState({
+            ...state,
+            isCorrectSet: true,
+            correctIndex: parseInt(event.target.value)
+        })
+    }
+
+    const handleTextInputChange = (event) => {
+        setState({
+            ...state,
+            [event.target.id]: event.target.value
+        })
+    }
+
+    const validateForm = () => {
+        const answersAreSet = state.a1 !== '' && state.a2 !== '' && state.a3 !== '' && state.a4 !== '';
+        return state.isCorrectSet && answersAreSet && state.question !== '';
     }
 
     const handleSend = () => {
         const id = numOfQuestions + 1;
-        const questionString = document.getElementById('question').value;
-        const correctIndex = parseInt(document.querySelector('input[name="answers"]:checked').value);
-        let answers = [];
-        document.querySelectorAll('input[name="answers"][type="text"]').forEach((element) => {
-            answers.push(element.value);
-        });
         const question = {
             id: id,
-            question: questionString,
-            answers: answers,
-            correctIndex: correctIndex
+            question: state.question,
+            answers: [state.a1, state.a2, state.a3, state.a4],
+            correctIndex: state.correctIndex
         }
         dispatch(addQuestion(question));
         dispatch(questionPoolInit());
-        setIsCorrect(false);
         resetForm();
     }
 
@@ -50,28 +66,28 @@ export function QuestionForm(){
         <div className={conStyles.container}>
             <h2 className={styles.formHeader}>Add a question!</h2>
             <label htmlFor="question"><h3>Question</h3></label>
-            <input type="text" name="question" id="question"/>
+            <input type="text" onChange={handleTextInputChange} name="question" id="question" value={state.question}/>
             <div className={styles.answerOption}>
                 <h3>Answers</h3>
                 <div className={styles.optionGroup}>
-                    <input type="text" name="answers" id="a1"/>
-                    <input onClick={handleChange} type="radio" name="answers" id="1" value="0"/>
+                    <textarea name="answers" id="a1" onChange={handleTextInputChange} value={state.a1}/>
+                    <input onClick={handleAnswerRadioBtChange} type="radio" name="a1" value="0" checked={state.correctIndex === 0}/>
                 </div>
                 <div className={styles.optionGroup}>
-                    <input type="text" name="answers" id="a2"/>
-                    <input onClick={handleChange} type="radio" name="answers" id="2" value="1"/>
+                    <textarea name="answers" id="a2" onChange={handleTextInputChange} value={state.a2}/>
+                    <input onClick={handleAnswerRadioBtChange} type="radio" name="a2" value="1" checked={state.correctIndex === 1}/>
                 </div>
                 <div className={styles.optionGroup}>
-                    <input type="text" name="answers" id="a3"/>
-                    <input onClick={handleChange} type="radio" name="answers" id="3" value="2"/>
+                    <textarea name="answers" id="a3" onChange={handleTextInputChange} value={state.a3}/>
+                    <input onClick={handleAnswerRadioBtChange} type="radio" name="a3" value="2" checked={state.correctIndex === 2}/>
                 </div>
                 <div className={styles.optionGroup}>
-                    <input type="text" name="answers" id="a4"/>
-                    <input onClick={handleChange} type="radio" name="answers" id="4" value="3"/>
+                    <textarea name="answers" id="a4" onChange={handleTextInputChange} value={state.a4}/>
+                    <input onClick={handleAnswerRadioBtChange} type="radio" name="a4" value="3" checked={state.correctIndex === 3}/>
                 </div>
             </div>
             {
-                isCorrectSet
+                validateForm()
                 ? <button onClick={handleSend}> Send </button>
                 : <button disabled={true}> Send </button>
             }

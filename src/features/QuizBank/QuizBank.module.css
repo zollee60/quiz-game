@@ -22,7 +22,7 @@ input[id='question']{
     margin: 10px 0;
 }
 
-.optionGroup > input[type='text']{
+.optionGroup > textarea{
     width: 350px;
 }
 

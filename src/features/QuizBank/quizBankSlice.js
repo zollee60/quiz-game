@@ -26,7 +26,8 @@ export const quizBankSlice = createSlice({
         activeQuestionIndex: -1,
         activeQuestion: {},
         gameState: "init",
-        answered: false
+        answered: false,
+        selectedAnswerIndex: -1
     },
     reducers: {
         //typeof action.payload: Question
@@ -90,10 +91,16 @@ export const quizBankSlice = createSlice({
         startInit: state => {state.gameState = "init"},
 
         setAnswered: (state, action) => {
-
             return {
                 ...state,
                 answered: action.payload
+            }
+        },
+
+        setSelectedAnswerIndex: (state, action) => {
+            return {
+                ...state,
+                selectedAnswerIndex: action.payload
             }
         }
     },
@@ -105,7 +112,8 @@ export const {addQuestion,
               questionPoolRemove,
               setRandomQuestion,
               setGameState,
-              setAnswered} = quizBankSlice.actions;
+              setAnswered,
+              setSelectedAnswerIndex} = quizBankSlice.actions;
 
 export const selectQuestions = state => state.quizBank.questions;
 export const selectQuestionPool = state => state.quizBank.questionPool;
@@ -116,5 +124,6 @@ export const selectActiveIndex = state => state.quizBank.activeQuestionIndex;
 export const selectActiveQuestion = state => state.quizBank.questions[state.quizBank.activeQuestionIndex];
 export const selectActiveCorrectIndex = state => state.quizBank.questions[state.quizBank.activeQuestionIndex].correctIndex;
 export const selectAnswered = state => state.quizBank.answered;
+export const getSelectAnswerIndex = state => state.quizBank.selectedAnswerIndex;
 
 export default quizBankSlice.reducer;
